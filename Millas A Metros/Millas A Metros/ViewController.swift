@@ -30,9 +30,11 @@ class ViewController: UIViewController {
 
     @IBAction func realizarConversion(_ sender: UIButton) {
         let eleccion = eleccionConversion.selectedSegmentIndex
-        let textFieldVal = Double(distanciaTexto.text!)!
         
-        if eleccion == 0 {
+        //Primero verifica si hay algo en el campo y luego intenta la conversión a Double
+        if let textFieldStr = distanciaTexto.text, let textFieldVal = Double(textFieldStr) {
+        
+            if eleccion == 0 {
             let convertedValue = textFieldVal / mileUnit
             /*
             //FORMATEO DE DATOS
@@ -42,10 +44,10 @@ class ViewController: UIViewController {
             resultado.text = "\(valorInicial) km = La conversión es \(valorFinal) millas"
             */
             reloadView(textFieldVal : textFieldVal, convertedValue : convertedValue)
-            print("Seleccionaste la opcion 0")
-        }
-        else{
-            let convertedValue = textFieldVal * mileUnit
+                print("Seleccionaste la opcion 0")
+            }
+            else{
+                let convertedValue = textFieldVal * mileUnit
             /*
             //FORMATEO DE DATOSS
             let valorInicial = String(format: "%.2f", textFieldVal)
@@ -54,7 +56,10 @@ class ViewController: UIViewController {
             resultado.text = "\(valorInicial) millas = La conversión es \(valorFinal) kilometros"
             */
             reloadView(textFieldVal : textFieldVal, convertedValue : convertedValue)
-            print("Seleccionaste la opcion 1")
+                print("Seleccionaste la opcion 1")
+            }
+        } else {
+            resultado.text = "Escribe algo, por favor";
         }
     }
     
